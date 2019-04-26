@@ -19,7 +19,7 @@ sentence = highlighter.highlight(sentence, "Highlighter awesome words")
 It returns a string with highlighted words, surrounded by a HTML tag.
 
 For example, this little piece of Javascript down there...
-```
+```JS
 const highlighter = new Highlighter()
 let sentence = "Highlight something"
 
