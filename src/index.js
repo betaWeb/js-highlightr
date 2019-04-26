@@ -10,15 +10,7 @@ class Highlighter {
      * @param {Number} options.word_min_length
      */
     constructor(options = {}) {
-        this._params = {
-            html_attrs: {},
-            html_tag: 'span',
-            css_classes: 'search__highlight',
-            regexp: '__exp__',
-            regexp_flags: 'gi',
-            word_min_length: 2,
-            ...options
-        }
+        this.setOptions(options)
     }
 
     /**
@@ -34,8 +26,6 @@ class Highlighter {
                 .filter((v, i, s) => s.indexOf(v) === i)
                 .filter(v => v.length > this._params.word_min_length)
 
-            console.log(parts)
-
             if (parts.length === 1 || (parts.length > 1 && this._belongsToContext(searchable, context))) {
                 return this._highlightWord(context, searchable)
             }
@@ -44,6 +34,18 @@ class Highlighter {
         }
 
         return context
+    }
+
+    setOptions(options = {}) {
+        this._params = {
+            html_attrs: {},
+            html_tag: 'span',
+            css_classes: 'search__highlight',
+            regexp: '__exp__',
+            regexp_flags: 'gi',
+            word_min_length: 2,
+            ...options
+        }
     }
 
     /**

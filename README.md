@@ -15,6 +15,24 @@ let sentence = "I wan't Highlighter to highlight words in this awesome sentence"
 sentence = highlighter.highlight(sentence, "Highlighter awesome words")
 ```
 
+You also can use Highlightr directly on your browser. You just have to download the `build/highlightr.min.js` file and import it into your HTML :
+```HTML
+<script src="/path/to/highlightr.min.js"></script>
+```
+And use it directly on a JS string via the `highlight` method (which is available in the String prototype) :
+```JS
+const str = "My awesome string"
+str.highlight('awesome') // My <span class="search__highlight" data-highlight="hl_1">awesome</span> string
+```
+
+You can pass options too :
+```JS
+const str = "My awesome string"
+str.highlight('awesome', {
+    css_classes: 'highlight-string'
+}) // My <span class="highlight-string" data-highlight="hl_1">awesome</span> string
+```
+
 ## Basic usage
 It returns a string with highlighted words, surrounded by a HTML tag.
 
