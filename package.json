@@ -1,6 +1,6 @@
 {
   "name": "js-highlightr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Highlightr allows you to highlight specific words in a string.",
   "main": "index.js",
   "scripts": {

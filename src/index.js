@@ -21,10 +21,14 @@ class Highlighter {
      * @returns {String}
      */
     highlight(context, searchable) {
+        if (!context)
+            throw new Error('Highlight::highlight - context parameter is required and must be of type string')
+
+        if (!searchable)
+            throw new Error('Highlight::highlight - searchable parameter is required and must be of type string or array')
+
         if (searchable && searchable.length) {
-            let parts = (searchable.constructor === String ? searchable.split(' ') : searchable)
-                .filter((v, i, s) => s.indexOf(v) === i)
-                .filter(v => v.length > this._params.word_min_length)
+            let parts = this._prepare(searchable.trim())
 
             if (parts.length === 1 || (parts.length > 1 && this._belongsToContext(searchable, context))) {
                 return this._highlightWord(context, searchable)
@@ -34,6 +38,23 @@ class Highlighter {
         }
 
         return context
+    }
+
+    /**
+     * Highlight a word or a group of words in an array of string
+     *
+     * @param {String[]} contextArray
+     * @param {String} searchable
+     * @returns {*}
+     */
+    highlightMany(contextArray, searchable) {
+        if (!contextArray || !Array.isArray(contextArray))
+            throw new Error('Highlight::highlightMany - contextArray parameter must be of type array')
+
+        return contextArray.reduce((acc, context) => {
+            acc.push(this.highlight(context, searchable))
+            return acc
+        }, [])
     }
 
     setOptions(options = {}) {
@@ -46,6 +67,13 @@ class Highlighter {
             word_min_length: 2,
             ...options
         }
+    }
+
+    _prepare(searchable) {
+        return (searchable.constructor === String ? searchable.split(' ') : searchable)
+            .filter((v, i, s) => s.indexOf(v) === i)
+            .filter(v => v.length > this._params.word_min_length)
+            .map(i => i.trim())
     }
 
     /**

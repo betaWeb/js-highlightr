@@ -65,3 +65,6 @@ typings/
 /.idea/*
 .idea/workspace.xml
 /.idea/workspace.xml
+demo
+/demo
+/demo/*
