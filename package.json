@@ -1,0 +1,28 @@
+{
+  "name": "js-highlightr",
+  "version": "1.0.0",
+  "description": "Highlightr allows you to highlight specific words in a string.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betaWeb/js-highlightr.git"
+  },
+  "keywords": [
+    "highlight",
+    "javascript",
+    "highlightr",
+    "string",
+    "word",
+    "sentence",
+    "amazing"
+  ],
+  "author": "Cyprien GLEPIN <betaweb34@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/betaWeb/js-highlightr/issues"
+  },
+  "homepage": "https://github.com/betaWeb/js-highlightr#readme"
+}
