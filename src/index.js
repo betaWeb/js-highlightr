@@ -21,14 +21,12 @@ class Highlighter {
      * @returns {String}
      */
     highlight(context, searchable) {
-        if (!context)
-            throw new Error('Highlight::highlight - context parameter is required and must be of type string')
-
-        if (!searchable)
-            throw new Error('Highlight::highlight - searchable parameter is required and must be of type string or array')
+        if (!context || !context.length) return ''
 
         if (searchable && searchable.length) {
             let parts = this._prepare(searchable.trim())
+
+            if (!parts.length) return context
 
             if (parts.length === 1 || (parts.length > 1 && this._belongsToContext(searchable, context))) {
                 return this._highlightWord(context, searchable)
