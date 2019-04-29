@@ -7,8 +7,8 @@ if (!String.prototype.highlight) {
     }
 }
 
-if (!Array.prototype.highlightMany) {
-    Array.prototype.highlightMany = function (searchable, options = {}) {
+if (!Array.prototype.highlight) {
+    Array.prototype.highlight = function (searchable, options = {}) {
         const _instance = new Highlight(options)
         return _instance.highlightMany(this, searchable)
     }

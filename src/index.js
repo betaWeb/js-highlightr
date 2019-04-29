@@ -22,20 +22,8 @@ class Highlighter {
      */
     highlight(context, searchable) {
         if (!context || !context.length) return ''
-
-        if (searchable && searchable.length) {
-            let parts = this._prepare(searchable.trim())
-
-            if (!parts.length) return context
-
-            if (parts.length === 1 || (parts.length > 1 && this._belongsToContext(searchable, context))) {
-                return this._highlightWord(context, searchable)
-            }
-
-            return parts.reduce(this._highlightWord.bind(this), context)
-        }
-
-        return context
+        if (!searchable || !searchable.length) return context
+        return this._highlight(context, searchable)
     }
 
     /**
@@ -68,25 +56,30 @@ class Highlighter {
     }
 
     _prepare(searchable) {
-        return (searchable.constructor === String ? searchable.split(' ') : searchable)
+        const initial_value = searchable
+        searchable = searchable.constructor === String ? searchable.split(' ') : searchable
+        searchable.unshift(initial_value)
+        return searchable
             .filter((v, i, s) => s.indexOf(v) === i)
             .filter(v => v.length > this._params.word_min_length)
             .map(i => i.trim())
+            .join('|')
     }
 
     /**
-     * Highlight word in a string
+     * Highlight one or several words in a string
      *
      * @param {String} context
-     * @param {String} word
-     * @param {Number} index
+     * @param {String} searchable
      * @returns {string}
      * @private
      */
-    _highlightWord(context, word, index = 0) {
+    _highlight(context, searchable) {
+        searchable = this._prepare(searchable)
+        if (!searchable.length) return context
         return context.replace(
-            this._buildRegExp(word),
-            this._buildTemplate(word, index)
+            this._buildRegExp(searchable), 
+            match => this._buildTemplate(match)
         )
     }
 
@@ -102,22 +95,21 @@ class Highlighter {
     }
 
     /**
-     * @param {String} word
+     * @param {String} searchable
      * @returns {RegExp}
      * @private
      */
-    _buildRegExp(word) {
-        return new RegExp(this._params.regexp.replace('__exp__', word), this._params.regexp_flags)
+    _buildRegExp(searchable) {
+        return new RegExp(this._params.regexp.replace('__exp__', searchable), this._params.regexp_flags)
     }
 
     /**
      * @param {String} word
-     * @param {Number} index word index
      * @returns {string}
      * @private
      */
-    _buildTemplate(word, index) {
-        return `<${this._params.html_tag} class="${this._params.css_classes}" ${this._buildAttrs()} data-highlight="hl_${index + 1}">${word}</${this._params.html_tag}>`
+    _buildTemplate(word) {
+        return `<${this._params.html_tag} class="${this._params.css_classes}" ${this._buildAttrs()} js-highlightr>${word}</${this._params.html_tag}>`
     }
 
     /**
