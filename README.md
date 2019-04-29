@@ -22,7 +22,7 @@ You also can use Highlightr directly on your browser. You just have to download 
 And use it directly on a JS string via the `highlight` method (which is available in the String prototype) :
 ```JS
 const str = "My awesome string"
-str.highlight('awesome') // My <span class="search__highlight" data-highlight="hl_1">awesome</span> string
+str.highlight('awesome') // My <span class="search__highlight" js-highlight>awesome</span> string
 ```
 
 You can pass options too :
@@ -30,7 +30,7 @@ You can pass options too :
 const str = "My awesome string"
 str.highlight('awesome', {
     css_classes: 'highlight-string'
-}) // My <span class="highlight-string" data-highlight="hl_1">awesome</span> string
+}) // My <span class="highlight-string" js-highlight>awesome</span> string
 ```
 
 ## Basic usage
@@ -46,10 +46,21 @@ sentence = highlighter.highlight(sentence, "something")
 
 returns the following HTML string :
 ```HTML
-Highlight <span class="search__highlight" data-highlight="hl_1">something</span>
+Highlight <span class="search__highlight" js-highlight>something</span>
 ```
 
-## deal with options
+You also can directly highlight word or group of words on a HTMLNodeElement with the `highlight` method :
+```HTML
+<p class="sentence">My awesome string</p>
+```
+
+In your JS script :
+```JS
+document.querySelector('.sentence').highlight('awesome')
+ // <p class="sentence">My <span class="search__highlight" js-highlight>awesome</span> string</p>
+```
+
+## deals with options
 You can pass many options to the class :
 ```JS
 const highlighter = new Highlighter({
