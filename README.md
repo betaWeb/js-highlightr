@@ -1,8 +1,7 @@
 # js-highlightr
 Highlightr allows you to highlight specific words in a string.
 
-<br><br>
-<br><br>
+<br><br><br>
 
 ## Getting started
 Very simple to install...
@@ -36,8 +35,7 @@ str.highlight('awesome', {
 }) // My <span class="highlight-string" js-highlight>awesome</span> string
 ```
 
-<br><br>
-<br><br>
+<br><br><br>
 
 ## Basic usage
 It returns a string with highlighted words, surrounded by a HTML tag.
@@ -68,8 +66,7 @@ document.querySelector('.sentence').highlight('awesome')
  // <p class="sentence">My <span class="search__highlight" js-highlight>awesome</span> string</p>
 ```
 
-<br><br>
-<br><br>
+<br><br><br>
 
 ## deals with options
 You can pass many options to the class :
